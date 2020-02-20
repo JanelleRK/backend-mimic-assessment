@@ -53,21 +53,18 @@ __author__ = "???"
             
 
 def create_mimic_dict(filename):
-    word_dict = {}
+    mimic_dict = {}
     first_word = ""
     with open(filename, 'r') as file:
         data = file.read()
-        print(data)
-        words = data.split() #split into list
-        print(words)
+        words = data.split() 
         for word in words:
-            if first_word not in word_dict:
-                word_dict[first_word] = [word]
+            if first_word not in mimic_dict:
+                mimic_dict[first_word] = [word]
             else:
-                word_dict[first_word].append(word)
+                mimic_dict[first_word].append(word)
             first_word = word
-    print(word_dict)
-    return word_dict
+    return mimic_dict
 
 
 
@@ -96,13 +93,12 @@ def create_mimic_dict(filename):
 
 
 def print_mimic(mimic_dict, start_word):
-    start_word = random.choice(mimic_dict.keys())
-    next_list = random.choice(mimic_dict.values())
-    print(start_word)
-    print(next_list)
-    # for word in mimic_dict:
-    #     start_word = random.choice(word)
-    return
+    for unused_i in range(200):
+        print(start_word)
+        next_list = mimic_dict.get(start_word)
+        if not next_list:
+            next_list = mimic_dict['']
+        start_word = random.choice(next_list)
     """Given a previously compiled mimic_dict and start_word, prints 200 random words:
         - Print the start_word
         - Lookup the start_word in your mimic_dict and get it's next-list
