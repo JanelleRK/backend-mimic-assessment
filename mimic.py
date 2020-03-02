@@ -46,10 +46,32 @@ columns, so the output looks better.
 import random
 import sys
 
-__author__ = "???"
+__author__ = "help from Stew"
 
+
+
+            
 
 def create_mimic_dict(filename):
+    mimic_dict = {}
+    first_word = ""
+    with open(filename, 'r') as file:
+        data = file.read()
+        words = data.split() 
+        for word in words:
+            if first_word not in mimic_dict:
+                mimic_dict[first_word] = [word]
+            else:
+                mimic_dict[first_word].append(word)
+            first_word = word
+    return mimic_dict
+
+
+
+            
+    
+
+
     """Returns mimic dict mapping each word to list of words which follow it.
     For example:
         Input: "I am a software developer, and I don't care who knows"
@@ -71,20 +93,25 @@ def create_mimic_dict(filename):
 
 
 def print_mimic(mimic_dict, start_word):
+    for unused_i in range(200):
+        print(start_word)
+        next_list = mimic_dict.get(start_word)
+        if not next_list:
+            next_list = mimic_dict['']
+        start_word = random.choice(next_list)
     """Given a previously compiled mimic_dict and start_word, prints 200 random words:
         - Print the start_word
         - Lookup the start_word in your mimic_dict and get it's next-list
         - Randomly select a new word from the next-list
         - Repeat this process 200 times
     """
-    # +++your code here+++
-    pass
+    
 
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
     if len(sys.argv) != 2:
-        print 'usage: python mimic.py file-to-read'
+        print('usage: python mimic.py file-to-read')
         sys.exit(1)
 
     d = create_mimic_dict(sys.argv[1])
